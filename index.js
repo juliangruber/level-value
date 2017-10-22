@@ -21,22 +21,30 @@ class Subscription extends EventEmitter {
     db.on('del', this.ondel)
     db.on('batch', this.onbatch)
 
-    db.get(key, (_, value) => {
-      this.emit('value', value)
-    })
+    if (typeof key === 'string') {
+      db.get(key, (_, value) => {
+        this.emit('value', value)
+      })
+    }
+  }
+
+  test (key) {
+    return typeof this._key === 'string'
+      ? this._key === key
+      : this._key.test(key)
   }
 
   onput (key, value) {
-    if (key === this._key) this.emit('value', value)
+    if (this.test(key)) this.emit('value', value)
   }
 
   ondel (key) {
-    if (key === this._key) this.emit('value', undefined)
+    if (this.test(key)) this.emit('value', undefined)
   }
 
   onbatch (ops) {
     for (const op of ops) {
-      if (op.key === this._key) this.emit('value', op.value)
+      if (this.test(op.key)) this.emit('value', op.value)
     }
   }
 

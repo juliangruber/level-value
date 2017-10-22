@@ -3,7 +3,9 @@
 
 Subscribe to a [leveldb](http://leveldb.org/) value.
 
-Exposes `put`, `batch` and `del` changes through one unified interface.
+- exposes `put`, `batch` and `del` changes through one unified interface
+- accepts RegExps
+- perorms an initial `get` for the value (except with regexp)
 
 ## Usage
 

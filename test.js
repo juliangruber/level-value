@@ -105,3 +105,13 @@ test('unsubscribe', t => {
     })
   })
 })
+
+test('RegExp', t => {
+  const db = level()
+  const sub = subscribe(db, /^k/)
+  sub.once('value', value => {
+    t.equal(value, 'value')
+    t.end()
+  })
+  db.put('key', 'value')
+})
