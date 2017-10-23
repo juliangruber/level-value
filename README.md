@@ -5,7 +5,7 @@ Subscribe to a [leveldb](http://leveldb.org/) value.
 
 - exposes `put`, `batch` and `del` changes through one unified interface
 - accepts RegExps
-- perorms an initial `get` for the value (except with RegExp)
+- performs an initial `get` for the value (except with RegExp)
 
 ## Usage
 
@@ -14,8 +14,7 @@ const subscribe = require('level-value')
 
 subscribe(db, 'key', value => {
   console.log(value)  
-})
-sub.off()
+}).off()
 
 // Alternative EventEmitter API
 
